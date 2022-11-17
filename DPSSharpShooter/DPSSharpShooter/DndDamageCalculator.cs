@@ -57,6 +57,16 @@ namespace DPSSharpShooter
 
         private bool ChanceToHitCalculator(int roll)
         {
+            if(roll == 20)//Crit always hits
+            {
+                return true;
+            }
+            if (roll == 1)//Crit Fail always misses
+            {
+                return false;
+            }
+
+
             if (sharpshooter.Checked)
             {
                 return roll + attack - 5 >= ac;
@@ -157,7 +167,10 @@ namespace DPSSharpShooter
                     avgDPA += NormalDamage(sharpshooter.Checked);
                 }
             }
+            chanceToHit++;
+            Console.WriteLine("Before: " + avgDPA.ToString());
             avgDPA += CritDamage(sharpshooter.Checked); //Factoring for the one crit in the event of a 20
+            Console.WriteLine("After: " + avgDPA.ToString());
             avgDPA = avgDPA / 20;
 
             chanceToHit = ((chanceToHit )* 5);
@@ -174,7 +187,7 @@ namespace DPSSharpShooter
                     { 
                         if(roll1 == 20 || roll2 == 20)
                         {
-                            avgDPA += CritDamage(sharpshooter.Checked); //
+                            avgDPA += CritDamage(sharpshooter.Checked); 
                             chanceToHit++;
                         }
                         else if (ChanceToHitCalculator(roll1) || ChanceToHitCalculator(roll2))
