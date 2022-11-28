@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -181,53 +182,64 @@ namespace DPSSharpShooter
         {
             if (advantage) //I have the if statement outside the loop to minimize the number of bool operations. 
             {
-                for(int roll1 = 1; roll1 <= 20; roll1++) // runs 1 die
-                {
-                    for (int roll2 = 1; roll2 <= 20; roll2++) //runs the second die with advantage
-                    { 
-                        if(roll1 == 20 || roll2 == 20)
-                        {
-                            avgDPA += CritDamage(sharpshooter.Checked); 
-                            chanceToHit++;
-                        }
-                        else if (ChanceToHitCalculator(roll1) || ChanceToHitCalculator(roll2))
-                        {
-                            avgDPA += NormalDamage(sharpshooter.Checked);
-                            chanceToHit++;
-
-                        }
-                        
-                    }
-                }
+                AdvantageRoll(ref avgDPA, ref chanceToHit, true);
             }
             else
             {
-                for (int roll1 = 1; roll1 <= 20; roll1++) //Like with advantage, I have two dice. 
-                {
-                    for (int roll2 = 1; roll2 <= 20; roll2++)
-                    {
-                        if (!(roll1 == 1 ) || !(roll2 == 1)) //ensures neither die crit fail on disadvantage
-                        {
-                            if (roll1 == 20 && roll2 == 20)
-                            {
-                                avgDPA += CritDamage(sharpshooter.Checked);
-                                chanceToHit++;
-                            }
-                            else if (ChanceToHitCalculator(roll1) && ChanceToHitCalculator(roll2))
-                            {
-                                avgDPA += NormalDamage(sharpshooter.Checked);
-                                chanceToHit++;
-                            }
-                        }
-
-                    }
-                }
+                AdvantageRoll(ref avgDPA, ref chanceToHit, false);
             }
             chanceToHit = chanceToHit * 0.25f; //calculates the percent chance to hit
 
             avgDPA /= 400; //400 possible outcomes, therefore, 
 
             return avgDPA;
+        }
+
+        private void AdvantageRoll(ref float dpa, ref float chanceInt, bool advantage)
+        {
+            for (int roll1 = 1; roll1 <= 20; roll1++) // runs 1 die
+            {
+                for (int roll2 = 1; roll2 <= 20; roll2++) //runs the second die with advantage
+                {
+                    CalculationType(roll1, roll2, advantage, ref dpa, ref chanceInt);
+                }
+                
+            }
+        }
+
+        private void CalculationType(int roll1, int roll2, bool advantage, ref float dpa, ref float chanceInt)
+        {
+            if (advantage)
+            {
+                if (!(roll1 == 1) || !(roll2 == 1)) //ensures neither die crit fail on disadvantage
+                {
+                    if (roll1 == 20 && roll2 == 20)
+                    {
+                        dpa += CritDamage(sharpshooter.Checked);
+                        chanceInt++;
+                    }
+                    else if (ChanceToHitCalculator(roll1) && ChanceToHitCalculator(roll2))
+                    {
+                        dpa += NormalDamage(sharpshooter.Checked);
+                        chanceInt++;
+                    }
+                }
+
+            }
+            else
+            {
+                if (roll1 == 20 || roll2 == 20)
+                {
+                    dpa += CritDamage(sharpshooter.Checked);
+                    chanceInt++;
+                }
+                else if (ChanceToHitCalculator(roll1) || ChanceToHitCalculator(roll2))
+                {
+                    dpa += NormalDamage(sharpshooter.Checked);
+                    chanceInt++;
+
+                }
+            }
         }
 
         public float CritDamage(bool sharpshooting)//Returns an average attack with a typical non-crit roll.
