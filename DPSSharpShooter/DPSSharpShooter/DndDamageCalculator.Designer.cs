@@ -240,7 +240,7 @@
             // resistance
             // 
             this.resistance.AutoSize = true;
-            this.resistance.Location = new System.Drawing.Point(210, 256);
+            this.resistance.Location = new System.Drawing.Point(266, 256);
             this.resistance.Name = "resistance";
             this.resistance.Size = new System.Drawing.Size(85, 17);
             this.resistance.TabIndex = 19;
@@ -251,7 +251,7 @@
             // effective
             // 
             this.effective.AutoSize = true;
-            this.effective.Location = new System.Drawing.Point(48, 256);
+            this.effective.Location = new System.Drawing.Point(40, 256);
             this.effective.Name = "effective";
             this.effective.Size = new System.Drawing.Size(74, 17);
             this.effective.TabIndex = 18;

@@ -9,3 +9,14 @@ C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpSh
 C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.exe
 C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.pdb
 C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.DndDamageCalculator.resources
+C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\bin\Debug\DPSSharpShooter.exe.config
+C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\bin\Debug\DPSSharpShooter.exe
+C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\bin\Debug\DPSSharpShooter.pdb
+C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.csproj.AssemblyReference.cache
+C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.csproj.SuggestedBindingRedirects.cache
+C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.DndDamageCalculator.resources
+C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.Properties.Resources.resources
+C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.csproj.GenerateResource.cache
+C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.csproj.CoreCompileInputs.cache
+C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.exe
+C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.pdb
