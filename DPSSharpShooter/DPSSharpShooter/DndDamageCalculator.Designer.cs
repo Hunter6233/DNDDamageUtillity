@@ -146,7 +146,7 @@
             // sharpshooter
             // 
             this.sharpshooter.AutoSize = true;
-            this.sharpshooter.Location = new System.Drawing.Point(48, 156);
+            this.sharpshooter.Location = new System.Drawing.Point(40, 156);
             this.sharpshooter.Name = "sharpshooter";
             this.sharpshooter.Size = new System.Drawing.Size(203, 17);
             this.sharpshooter.TabIndex = 10;
@@ -218,7 +218,7 @@
             // advantage
             // 
             this.advantage.AutoSize = true;
-            this.advantage.Location = new System.Drawing.Point(48, 204);
+            this.advantage.Location = new System.Drawing.Point(40, 204);
             this.advantage.Name = "advantage";
             this.advantage.Size = new System.Drawing.Size(84, 17);
             this.advantage.TabIndex = 16;
@@ -229,7 +229,7 @@
             // disadvantage
             // 
             this.disadvantage.AutoSize = true;
-            this.disadvantage.Location = new System.Drawing.Point(210, 204);
+            this.disadvantage.Location = new System.Drawing.Point(266, 204);
             this.disadvantage.Name = "disadvantage";
             this.disadvantage.Size = new System.Drawing.Size(98, 17);
             this.disadvantage.TabIndex = 17;
