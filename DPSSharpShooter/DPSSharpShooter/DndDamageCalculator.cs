@@ -35,6 +35,7 @@ namespace DPSSharpShooter
         private float attackDieAverage = 0;
         private int maxHit;
         private float chanceToHit = 0;
+        private bool effectiveBool, resistantBool;
         
         public DndDamageCalculator() 
         { 
@@ -92,6 +93,7 @@ namespace DPSSharpShooter
             {
                 maxHit += 10;
             }
+            CalculateEffectiveness(ref maxHit);
             return maxHit;
         }
         //These are the events when the text changes. 
@@ -169,12 +171,14 @@ namespace DPSSharpShooter
                 }
             }
             chanceToHit++;
-            Console.WriteLine("Before: " + avgDPA.ToString());
+            //Console.WriteLine("Before: " + avgDPA.ToString());
             avgDPA += CritDamage(sharpshooter.Checked); //Factoring for the one crit in the event of a 20
-            Console.WriteLine("After: " + avgDPA.ToString());
+            //Console.WriteLine("After: " + avgDPA.ToString());
             avgDPA = avgDPA / 20;
 
             chanceToHit = ((chanceToHit )* 5);
+
+            CalculateEffectiveness(ref avgDPA);
 
             return avgDPA;
         }
@@ -192,6 +196,7 @@ namespace DPSSharpShooter
 
             avgDPA /= 400; //400 possible outcomes, therefore, 
 
+            CalculateEffectiveness(ref avgDPA);
             return avgDPA;
         }
 
@@ -239,6 +244,30 @@ namespace DPSSharpShooter
                     chanceInt++;
 
                 }
+            }
+        }
+
+        private void CalculateEffectiveness(ref float damage)
+        {
+            if (effectiveBool)
+            {
+                damage += damage;
+            }
+            if(resistantBool)
+            {
+                damage = damage / 2;
+            }
+        }
+        
+        private void CalculateEffectiveness(ref int damage)
+        {
+            if (effectiveBool)
+            {
+                damage += damage;
+            }
+            if (resistantBool)
+            {
+                damage = damage / 2;
             }
         }
 
@@ -318,5 +347,35 @@ namespace DPSSharpShooter
                 advantageType = AdvantageType.normal;
             }
         }//Checks if you've clicked on the advantage
+
+        private void resistance_CheckedChanged(object sender, EventArgs e)
+        {
+            if (resistance.Checked)
+            {
+                resistantBool = true;
+                effectiveBool = false;
+                effective.Checked = false;
+                effective.CheckState = CheckState.Unchecked;
+            }
+            else
+            {
+                resistantBool = false;
+            }
+        }
+
+        private void effective_CheckedChanged(object sender, EventArgs e)
+        {
+            if (effective.Checked)
+            {
+                effectiveBool = true;
+                resistantBool = false;
+                resistance.Checked = false;
+                resistance.CheckState = CheckState.Unchecked;
+            }
+            else
+            {
+                effectiveBool = false;
+            }
+        }
     }
 }

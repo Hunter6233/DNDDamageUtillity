@@ -48,6 +48,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.advantage = new System.Windows.Forms.CheckBox();
             this.disadvantage = new System.Windows.Forms.CheckBox();
+            this.resistance = new System.Windows.Forms.CheckBox();
+            this.effective = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // attackText
@@ -87,7 +89,7 @@
             // calculateButton
             // 
             this.calculateButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.calculateButton.Location = new System.Drawing.Point(48, 264);
+            this.calculateButton.Location = new System.Drawing.Point(107, 297);
             this.calculateButton.Name = "calculateButton";
             this.calculateButton.Size = new System.Drawing.Size(115, 40);
             this.calculateButton.TabIndex = 4;
@@ -101,7 +103,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.results.AutoSize = true;
             this.results.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.results.Location = new System.Drawing.Point(435, 48);
+            this.results.Location = new System.Drawing.Point(383, 60);
             this.results.Name = "results";
             this.results.Size = new System.Drawing.Size(121, 31);
             this.results.TabIndex = 5;
@@ -157,7 +159,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.avgDamageText.AutoSize = true;
             this.avgDamageText.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.avgDamageText.Location = new System.Drawing.Point(562, 54);
+            this.avgDamageText.Location = new System.Drawing.Point(510, 66);
             this.avgDamageText.Name = "avgDamageText";
             this.avgDamageText.Size = new System.Drawing.Size(289, 25);
             this.avgDamageText.TabIndex = 11;
@@ -169,7 +171,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chanceToHitText.AutoSize = true;
             this.chanceToHitText.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chanceToHitText.Location = new System.Drawing.Point(562, 204);
+            this.chanceToHitText.Location = new System.Drawing.Point(510, 216);
             this.chanceToHitText.Name = "chanceToHitText";
             this.chanceToHitText.Size = new System.Drawing.Size(155, 25);
             this.chanceToHitText.TabIndex = 12;
@@ -182,7 +184,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.maxHitNormalText.AutoSize = true;
             this.maxHitNormalText.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maxHitNormalText.Location = new System.Drawing.Point(562, 156);
+            this.maxHitNormalText.Location = new System.Drawing.Point(510, 168);
             this.maxHitNormalText.Name = "maxHitNormalText";
             this.maxHitNormalText.Size = new System.Drawing.Size(165, 25);
             this.maxHitNormalText.TabIndex = 13;
@@ -194,7 +196,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.maxHitCritText.AutoSize = true;
             this.maxHitCritText.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maxHitCritText.Location = new System.Drawing.Point(562, 103);
+            this.maxHitCritText.Location = new System.Drawing.Point(510, 115);
             this.maxHitCritText.Name = "maxHitCritText";
             this.maxHitCritText.Size = new System.Drawing.Size(179, 25);
             this.maxHitCritText.TabIndex = 14;
@@ -202,11 +204,10 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(776, 291);
+            this.label3.Location = new System.Drawing.Point(760, 327);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(169, 13);
             this.label3.TabIndex = 15;
@@ -236,11 +237,35 @@
             this.disadvantage.UseVisualStyleBackColor = true;
             this.disadvantage.CheckedChanged += new System.EventHandler(this.disadvantage_CheckedChanged);
             // 
+            // resistance
+            // 
+            this.resistance.AutoSize = true;
+            this.resistance.Location = new System.Drawing.Point(210, 256);
+            this.resistance.Name = "resistance";
+            this.resistance.Size = new System.Drawing.Size(85, 17);
+            this.resistance.TabIndex = 19;
+            this.resistance.Text = "Resistance?";
+            this.resistance.UseVisualStyleBackColor = true;
+            this.resistance.CheckedChanged += new System.EventHandler(this.resistance_CheckedChanged);
+            // 
+            // effective
+            // 
+            this.effective.AutoSize = true;
+            this.effective.Location = new System.Drawing.Point(48, 256);
+            this.effective.Name = "effective";
+            this.effective.Size = new System.Drawing.Size(74, 17);
+            this.effective.TabIndex = 18;
+            this.effective.Text = "Effective?";
+            this.effective.UseVisualStyleBackColor = true;
+            this.effective.CheckedChanged += new System.EventHandler(this.effective_CheckedChanged);
+            // 
             // DndDamageCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(970, 315);
+            this.ClientSize = new System.Drawing.Size(941, 349);
+            this.Controls.Add(this.resistance);
+            this.Controls.Add(this.effective);
             this.Controls.Add(this.disadvantage);
             this.Controls.Add(this.advantage);
             this.Controls.Add(this.label3);
@@ -286,6 +311,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox advantage;
         private System.Windows.Forms.CheckBox disadvantage;
+        private System.Windows.Forms.CheckBox resistance;
+        private System.Windows.Forms.CheckBox effective;
     }
 }
 
