@@ -1,0 +1,11 @@
+C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\bin\Release\DPSSharpShooter.exe.config
+C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\bin\Release\DPSSharpShooter.exe
+C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\bin\Release\DPSSharpShooter.pdb
+C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\obj\Release\DPSSharpShooter.csproj.AssemblyReference.cache
+C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\obj\Release\DPSSharpShooter.csproj.SuggestedBindingRedirects.cache
+C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\obj\Release\DPSSharpShooter.Properties.Resources.resources
+C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\obj\Release\DPSSharpShooter.csproj.GenerateResource.cache
+C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\obj\Release\DPSSharpShooter.csproj.CoreCompileInputs.cache
+C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\obj\Release\DPSSharpShooter.exe
+C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\obj\Release\DPSSharpShooter.pdb
+C:\Users\Matte\source\repos\DPSSharpShooter\DPSSharpShooter\obj\Release\DPSSharpShooter.DndDamageCalculator.resources

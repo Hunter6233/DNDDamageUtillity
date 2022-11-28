@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml.Schema;
 
-public enum AdvantageType //If I choose to add more forms in the future, I'd like to keep it public. 
+public enum AdvantageType
 {
     normal,
     advantage,
@@ -23,14 +23,12 @@ namespace DPSSharpShooter
 {
     public partial class DndDamageCalculator : Form
     {
-        //I attempted local variables, however, I was running into an unknown error.
-        //I plan to convert some of them to be more local at a future date. 
-        private AdvantageType advantageType = AdvantageType.normal; 
+        private AdvantageType advantageType = AdvantageType.normal;
         private int ac = 15; 
         private int attack = 7; 
-        private int attackDamage = 3;
+        private int attackDamage = 5;
         private int dieSides = 6;                                                           
-        private float avgDPA; 
+        private float avgDPS; 
         private float attackDieAverage = 0;
         private int maxHit;
         private float chanceToHit = 0;
@@ -41,7 +39,7 @@ namespace DPSSharpShooter
             SetDefaults();
         }
 
-        private void SetDefaults()// sets default values for the variables.
+        private void SetDefaults()
         {
             attackText.Text = attack.ToString();
             acText.Text = ac.ToString();
@@ -51,22 +49,28 @@ namespace DPSSharpShooter
         }
         private void DieSideCalculation() 
         {
-            attackDieAverage = ((float)dieSides/2) + 0.5f; //Used to be far more complicated than it was before, but I'm keeping the funciton here just to keep it organized.  
+            try
+            {
+                dieSides = Int32.Parse(attackDieText.Text);
+            }
+            catch
+            {
+                Console.WriteLine("Parse Failed");
+                dieSides = 0;
+            }
+            
+            attackDieAverage = 0;
+            for (int i = dieSides; i > 0; i--) 
+            { 
+                attackDieAverage += i;
+            } 
+            attackDieAverage = attackDieAverage/(float)dieSides;
+            //Console.WriteLine(dieSides.ToString());
             //Console.WriteLine(attackDieAverage.ToString());
         }
 
         private bool ChanceToHitCalculator(int roll)
         {
-            if(roll == 20)//Crit always hits
-            {
-                return true;
-            }
-            if (roll == 1)//Crit Fail always misses
-            {
-                return false;
-            }
-
-
             if (sharpshooter.Checked)
             {
                 return roll + attack - 5 >= ac;
@@ -80,7 +84,7 @@ namespace DPSSharpShooter
         {
             if (crit)
             {
-                maxHit = attackDamage + dieSides + dieSides; //Two dice rolls on a crit. 
+                maxHit = attackDamage + (dieSides * 2);
             }
             else
             {
@@ -91,9 +95,11 @@ namespace DPSSharpShooter
             {
                 maxHit += 10;
             }
+            CalculateEffectiveness(ref maxHit);
+
             return maxHit;
         }
-        //These are the events when the text changes. 
+
         private void textBox1_TextChanged(object sender, EventArgs e) 
         {
             checkText(ref attackText, ref attack);
@@ -117,32 +123,32 @@ namespace DPSSharpShooter
             CheckAll();
             CalculateResults();
         }
-        private void CheckAll() 
+        private void CheckAll()
         {
             checkText(ref attackDieText, ref dieSides);
             checkText(ref attackText, ref attack);
             checkText(ref acText, ref ac);
             checkText(ref attackModifierText, ref attackDamage);
-        }//Fail safe in case some Parse failed. 
+        }
         private void CalculateResults() 
         {
             DieSideCalculation();
             DisplayResults();
         }
 
-        private void DisplayResults() //shows the results of the calculation
+        private void DisplayResults()
         {
             maxHitNormalText.Text = "Max Hit Normal: " + MaxHitCalculator(false);
             maxHitCritText.Text = "Max hit with Crit: " + MaxHitCalculator(true);
-            avgDamageText.Text = "Average Damage Per Attack: " + CalculateAverageDPA();
+            avgDamageText.Text = "Average Damage Per Attack: " + CalculateAverageDPS();
             chanceToHitText.Text = "Chance to Hit: " + chanceToHit.ToString() + "%";
         }
-        private float CalculateAverageDPA() //Calculates average DPA (Damage Per Attack)
+        private float CalculateAverageDPS()
         {
             chanceToHit = 0;
-            avgDPA = 0;
+            avgDPS = 0;
             //Console.WriteLine("AC: " + ac);
-            switch (advantageType) // Determines which calculation is needed. 
+            switch (advantageType)
             {
                 case AdvantageType.normal:
                     return NormalAvgCalc();
@@ -151,48 +157,60 @@ namespace DPSSharpShooter
                 case AdvantageType.disadvantage:
                     return AdvantageAvgCalc(false);
                 default:
-                    Console.WriteLine("Error, no advantage type selected"); //This code in theory should be unreachable. 
+                    Console.WriteLine("Error, no advantage type selected");
                     return 0;
             }
         }
 
-        private float NormalAvgCalc() //With neither advantage, nor disadvantage, the calculation is rather simple. 
+        private float NormalAvgCalc()
         {
-            for (int i = 2; i < 20; i++)//Skips a crit fail which always misses and crit is calculated outside of the loop. 
+            for (int i = 2; i < 20; i++)
             {
                 if (ChanceToHitCalculator(i))
                 {
                     chanceToHit++;
-                    //Console.WriteLine(chanceToHit.ToString());
-                    avgDPA += NormalDamage(sharpshooter.Checked);
+                    if (!sharpshooter.Checked)
+                    {
+                        avgDPS += attackDamage + attackDieAverage;
+                    }
+                    else
+                    {
+                        avgDPS += attackDamage + attackDieAverage + 10;
+                    }
                 }
             }
-            chanceToHit++;
-            Console.WriteLine("Before: " + avgDPA.ToString());
-            avgDPA += CritDamage(sharpshooter.Checked); //Factoring for the one crit in the event of a 20
-            Console.WriteLine("After: " + avgDPA.ToString());
-            avgDPA = avgDPA / 20;
+            avgDPS += attackDamage + (attackDieAverage * 2);
+            avgDPS = avgDPS / 20;
 
             chanceToHit = ((chanceToHit )* 5);
 
-            return avgDPA;
+            Console.WriteLine("Before Value: " + avgDPS);
+            CalculateEffectiveness(ref avgDPS);
+            Console.WriteLine("Before Value: " + avgDPS);
+
+            return avgDPS;
         }
-        private float AdvantageAvgCalc(bool advantage) //True is with advantage, false is with disadvantage. 
+        private float AdvantageAvgCalc(bool advantage)
         {
-            if (advantage) //I have the if statement outside the loop to minimize the number of bool operations. 
+            if (advantage)
             {
-                for(int roll1 = 1; roll1 <= 20; roll1++) // runs 1 die
+                for(int roll1 = 1; roll1 <= 20; roll1++)
                 {
-                    for (int roll2 = 1; roll2 <= 20; roll2++) //runs the second die with advantage
-                    { 
-                        if(roll1 == 20 || roll2 == 20)
+                    for (int roll2 = 1; roll2 <= 20; roll2++)
+                    {
+                        
+                        if (roll1 == 1 && roll2 == 1)
                         {
-                            avgDPA += CritDamage(sharpshooter.Checked); 
+                            
+                        }
+                        else if(roll1 == 20 || roll2 == 20)
+                        {
+                            avgDPS += CritDamage(sharpshooter.Checked);
                             chanceToHit++;
                         }
                         else if (ChanceToHitCalculator(roll1) || ChanceToHitCalculator(roll2))
                         {
-                            avgDPA += NormalDamage(sharpshooter.Checked);
+                            avgDPS += NormalDamage(sharpshooter.Checked);
                             chanceToHit++;
 
                         }
@@ -202,20 +220,20 @@ namespace DPSSharpShooter
             }
             else
             {
-                for (int roll1 = 1; roll1 <= 20; roll1++) //Like with advantage, I have two dice. 
+                for (int roll1 = 1; roll1 <= 20; roll1++)
                 {
                     for (int roll2 = 1; roll2 <= 20; roll2++)
                     {
-                        if (!(roll1 == 1 ) || !(roll2 == 1)) //ensures neither die crit fail on disadvantage
+                        if (!(roll1 == 1 )|| !(roll2 == 1))
                         {
                             if (roll1 == 20 && roll2 == 20)
                             {
-                                avgDPA += CritDamage(sharpshooter.Checked);
+                                avgDPS += CritDamage(sharpshooter.Checked);
                                 chanceToHit++;
                             }
                             else if (ChanceToHitCalculator(roll1) && ChanceToHitCalculator(roll2))
                             {
-                                avgDPA += NormalDamage(sharpshooter.Checked);
+                                avgDPS += NormalDamage(sharpshooter.Checked);
                                 chanceToHit++;
                             }
                         }
@@ -223,24 +241,28 @@ namespace DPSSharpShooter
                     }
                 }
             }
-            chanceToHit = chanceToHit * 0.25f; //calculates the percent chance to hit
+            chanceToHit = chanceToHit * 0.25f;
 
-            avgDPA /= 400; //400 possible outcomes, therefore, 
+            avgDPS /= 400;
 
-            return avgDPA;
+            return avgDPS;
         }
 
-        public float CritDamage(bool sharpshooting)//Returns an average attack with a typical non-crit roll.
+        public float CritDamage(bool sharpshooting)
         {
             float result = attackDamage + (attackDieAverage * 2);
             if (sharpshooting)
             {
                 result += 10;
             }
-            
+
+            Console.WriteLine("Before Value: " + result);
+            CalculateEffectiveness(ref result);
+            Console.WriteLine("After Value: " + result);
+
             return result;
         }
-        public float NormalDamage(bool sharpshooting)//Returns an average attack with a typical non-crit roll.
+        public float NormalDamage(bool sharpshooting)
         {
             float result = attackDamage + attackDieAverage;
             if (sharpshooting)
@@ -248,19 +270,46 @@ namespace DPSSharpShooter
                 result += 10;
             }
 
+            Console.WriteLine("Before Value: " + result);
+            CalculateEffectiveness(ref result);
+            Console.WriteLine("After Value: " + result);
+
+
             return result;
         }
 
-        private void checkText(ref TextBox textBox, ref int number) //Recieves a number from the text box.
+        private void CalculateEffectiveness(ref float damage)
+        {
+            if (effective.Checked)
+            {
+                damage += damage; //In theory, += is more performant than *=2, so I'm using that. 
+            }
+            if (resistance.Checked)
+            {
+                damage = damage / 2;
+            }
+        }
+        private void CalculateEffectiveness(ref int damage)
+        {
+            if (effective.Checked)
+            {
+                damage += damage; //In theory, += is more performant than *=2, so I'm using that. 
+            }
+            if (resistance.Checked)
+            {
+                damage = damage / 2;
+            }
+        }
+        private void checkText(ref TextBox textBox, ref int number)
         {
 
-            try //Attempts to parse an int into the variable.
+            try
             {
                 //Console.WriteLine("Before, the value of " + textBox.Name + " is set to " + number);
                 number = Int32.Parse(textBox.Text);
-                //.WriteLine("After, the value of " + textBox.Name + " is set to " + number);
+                //Console.WriteLine("After, the value of " + textBox.Name + " is set to " + number);
             }
-            catch //in the event it fails, makes sure the text box isn't empty, then turns it to the last variable that was valid
+            catch
             {
                 //Console.WriteLine("Parse Failed!");
                 if (textBox.Text != "")
@@ -270,14 +319,14 @@ namespace DPSSharpShooter
                 }
                 else
                 {
-                    number = 0; // if the box is left empty, defaults to 0.
+                    number = 0;
                 }
             }
         }
 
-        private void label3_Click(object sender, EventArgs e)  // a link to my website if you click my name. 
+        private void label3_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.matteogenoese-zerbi.com/"); //Thank you for viewing my project!
+            System.Diagnostics.Process.Start("https://www.matteogenoese-zerbi.com/");
         }
 
         private void disadvantage_CheckedChanged(object sender, EventArgs e)
@@ -292,7 +341,7 @@ namespace DPSSharpShooter
             {
                 advantageType = AdvantageType.normal;
             }
-        }//Checks if you've clicked on the disadvantage
+        }
         private void advantage_CheckedChanged(object sender, EventArgs e)
         {
             if (advantage.Checked)
@@ -305,6 +354,24 @@ namespace DPSSharpShooter
             {
                 advantageType = AdvantageType.normal;
             }
-        }//Checks if you've clicked on the advantage
+        }
+
+        private void effective_CheckedChanged(object sender, EventArgs e)
+        {
+            if (effective.Checked)
+            {
+                resistance.Checked = false;
+                resistance.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        private void resistance_CheckedChanged(object sender, EventArgs e)
+        {
+            if (resistance.Checked)
+            {
+                effective.Checked = false;
+                effective.CheckState = CheckState.Unchecked;
+            }
+        }
     }
 }
