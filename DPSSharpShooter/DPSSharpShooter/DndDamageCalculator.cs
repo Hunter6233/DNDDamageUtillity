@@ -185,14 +185,10 @@ namespace DPSSharpShooter
         }
         private float AdvantageAvgCalc(bool advantage) //True is with advantage, false is with disadvantage. 
         {
-            if (advantage) //I have the if statement outside the loop to minimize the number of bool operations. 
-            {
-                AdvantageRoll(ref avgDPA, ref chanceToHit, true);
-            }
-            else
-            {
-                AdvantageRoll(ref avgDPA, ref chanceToHit, false);
-            }
+
+            AdvantageRoll(ref avgDPA, ref chanceToHit, advantage);
+
+
             chanceToHit = chanceToHit * 0.25f; //calculates the percent chance to hit
 
             avgDPA /= 400; //400 possible outcomes, therefore, 
@@ -215,7 +211,7 @@ namespace DPSSharpShooter
 
         private void CalculationType(int roll1, int roll2, bool advantage, ref float dpa, ref float chanceInt)
         {
-            if (advantage)
+            if (!advantage)
             {
                 if (!(roll1 == 1) || !(roll2 == 1)) //ensures neither die crit fail on disadvantage
                 {
