@@ -20,3 +20,13 @@ C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSShar
 C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.csproj.CoreCompileInputs.cache
 C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.exe
 C:\Users\Matte\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.pdb
+C:\Users\coden\source\repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.exe
+C:\Users\coden\source\repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.pdb
+C:\Users\coden\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\bin\Debug\DPSSharpShooter.exe.config
+C:\Users\coden\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\bin\Debug\DPSSharpShooter.exe
+C:\Users\coden\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\bin\Debug\DPSSharpShooter.pdb
+C:\Users\coden\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.csproj.AssemblyReference.cache
+C:\Users\coden\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.DndDamageCalculator.resources
+C:\Users\coden\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.Properties.Resources.resources
+C:\Users\coden\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.csproj.GenerateResource.cache
+C:\Users\coden\Source\Repos\Hunter6233\DNDDamageUtillity\DPSSharpShooter\DPSSharpShooter\obj\Debug\DPSSharpShooter.csproj.CoreCompileInputs.cache
